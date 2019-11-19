@@ -1,6 +1,8 @@
 \Problem{
-	You are given three data points $(x, y) : (-1, 0), (0, 1), (1, 0)$. We are 2
-	using squared error loss function $l(y, \hat y) = (y - \hat y)$.
+	You are given three data points $(x, y) : (-1, 0), (0, 1), (1, 0)$. We are
+	using squared error loss function 
+	$\ell(y, \hat y) = (y - \hat y)^2$.
+	
 	\begin{itemize}
 		\item[(a)] What is leave-one-out cross-validation error of constant 
 		model $f(x) = c$?
@@ -12,6 +14,35 @@
 \Solution{
 	\begin{itemize}
 		\item[(a)] 
+		Train set loss:
+		
+		\begin{align*}
+			l_1(c) & = \min_c \big((0-c)^2 + (1-c)^2\big) = \min_c \big(c^2 -2c 
+			+ 1 +c^2 \big) = \min_c \big( 2c^2 -2c +1 \big) =\dots \\
+			l_2(c) & = \min_c \big((0-c)^2 + (0-c)^2\big) = \min_c \big(c^2 
+			-c^2\big) = \min_c \big(0 \big)  = 0 \\
+			l_3(c) & = \min_c \big((1-c)^2 + (0-c)^2\big) = \min_c \big(c^2 -2c 
+			+1 +c^2\big) = \min_c \big(2c^2 -2c +1 \big) = \dots
+		\end{align*}
+		
+		\begin{align*}
+		l_1(c) = \frac{\partial l_1}{\partial c} &= 4c -2 = \frac{1}{2} \\
+		l_3(c) = \frac{\partial l_3}{\partial c} &= 4c -2 = \frac{1}{2}
+		\end{align*}
+		
+		
+		Validation set loss:
+		\begin{align*}
+		e_1(c) &=  \big(0-l_1(c)\big)^2 =  \big(0-\frac{1}{2}\big)^2 = 
+		\frac{1}{4} \\
+		e_2(c) &=  \big(0-l_2(c)\big)^2 =  \big(1 - 0 \big)^2 = 1 \\
+		e_3(c) &=  \big(0-l_3(c)\big)^2 =  \big(0 - \frac{1}{2} \big)^2 = 
+		\frac{1}{4}
+		\end{align*}
+		
+		
+		$E=\frac{e_1+e_2+e_3}{3}=\frac{1}{2}$
+		
 		\item[(b)] 
 	\end{itemize}
 }
