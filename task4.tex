@@ -13,36 +13,118 @@
 
 \Solution{
 	\begin{itemize}
-		\item[(a)] 
-		Train set loss:
+		\item[(a)] In each step, the model is trained on $n-1$ data-points and 
+		validated on the other. First of all, the train set loss is computed:
 		
 		\begin{align*}
-			l_1(c) & = \min_c \big((0-c)^2 + (1-c)^2\big) = \min_c \big(c^2 -2c 
-			+ 1 +c^2 \big) = \min_c \big( 2c^2 -2c +1 \big) =\dots \\
-			l_2(c) & = \min_c \big((0-c)^2 + (0-c)^2\big) = \min_c \big(c^2 
-			-c^2\big) = \min_c \big(0 \big)  = 0 \\
-			l_3(c) & = \min_c \big((1-c)^2 + (0-c)^2\big) = \min_c \big(c^2 -2c 
-			+1 +c^2\big) = \min_c \big(2c^2 -2c +1 \big) = \dots
+			l_1(c_1) & = \min_{c_1} \big((0-{c_1})^2 + (1-{c_1})^2\big) = 
+			\min_{c_1} \big( 2 {c_1}^2 - 2 {c_1} + 1 \big) \\
+			l_2(c_2) & = \min_{c_2} \big((0-{c_2})^2 + (0-{c_2})^2\big) = 
+			\min_{c_2} \big(2{c_2}^2\big)  \\
+			l_3(c_3) & = \min_{c_3} \big((1-{c_3})^2 + (0-{c_3})^2\big) = 
+			\min_{c_3} \big(2{c_3}^2 -2{c_3} +1 \big) 
 		\end{align*}
 		
+		Since we want to find the value of $c$ that minimise the squared error, 
+		it is necessary to compute the derivative of the loss $l$ with respect 
+		to $c$:
+		 
 		\begin{align*}
-		l_1(c) = \frac{\partial l_1}{\partial c} &= 4c -2 = \frac{1}{2} \\
-		l_3(c) = \frac{\partial l_3}{\partial c} &= 4c -2 = \frac{1}{2}
+		\frac{\partial l_1}{\partial c_1} & = 4c_1 -2 = 0  
+		& c_1 = \frac{1}{2} \\
+		\frac{\partial l_2}{\partial c_2} &= 4c_2 = 0 
+		& c_2 = 0 \\
+		\frac{\partial l_3}{\partial c_3} & = 4c_3 -2 = 0  
+		& c_3 = \frac{1}{2}
 		\end{align*}
 		
-		
-		Validation set loss:
+		Now, it is possible to validate the model on the other data-point:
 		\begin{align*}
-		e_1(c) &=  \big(0-l_1(c)\big)^2 =  \big(0-\frac{1}{2}\big)^2 = 
+		e_1(c_1) &=  \bigg(0-c_1\bigg)^2 =  \bigg(0-\frac{1}{2}\bigg)^2 = 
 		\frac{1}{4} \\
-		e_2(c) &=  \big(0-l_2(c)\big)^2 =  \big(1 - 0 \big)^2 = 1 \\
-		e_3(c) &=  \big(0-l_3(c)\big)^2 =  \big(0 - \frac{1}{2} \big)^2 = 
+		e_2(c_2) &=  \bigg(0-c_2\bigg)^2 =  \bigg(1 - 0 \bigg)^2 = 1 \\
+		e_3(c_3) &=  \bigg(0-c_3\bigg)^2 =  \bigg(0 - \frac{1}{2} \bigg)^2 = 
 		\frac{1}{4}
 		\end{align*}
 		
+		The final error is computed as the mean of the validation errors: 
+		\begin{equation*}
+			E=\frac{e_1+e_2+e_3}{3}=\frac{\frac{1}{4}+1+\frac{1}{4}}{3}=\frac{1}{2}
+		\end{equation*}
 		
-		$E=\frac{e_1+e_2+e_3}{3}=\frac{1}{2}$
+		\item[(b)] As in the previous exercise, in each step, the model is 
+		trained on $n-1$ data-points and validated on the other. First of all, 
+		the train set loss is computed:
 		
-		\item[(b)] 
+		\begin{align*}
+		l_1(a_1x_1+b_1) & = \min_{a_1,b_1} \bigg(\big(0-({-a_1+b_1})\big)^2 + 
+		\big(1-b_1\big)^2 \bigg) = \min_{a_1,b_1} \big( a_1^2 - 2 a_1 b_1 + 2 
+		b_1^2 - 2 b_1 + 1 \big) \\
+		l_2(a_2x_2+b_2) & = \min_{a_2,b_2} \bigg(\big(0-({-a_2+b_2})\big)^2 + 
+		\big(0-({a_2+b_2})\big)^2\bigg) =\min_{a_2,b_2}\big( 2 a_2^2 + 2 b_2^2 
+		\big) 
+		\\
+		l_3(a_3x_3+b_3) & = \min_{a_3,b_3} \bigg(\big(1-b_1\big)^2 + 
+		\big(0-({a_2+b_2})\big)^2\bigg) =  \min_{a_3,b_3}\big(a_3^2 + 2 a_3 b_3 
+		+ 2 b_3^2 - 2 b_3 + 1 \big)
+		\end{align*}
+		
+		Since we want to find the values of $a$ and $b$ that minimise the 
+		squared error, it is necessary to compute the derivative of the loss 
+		$l$ with respect to $a$ and $b$:
+		
+		\begin{align*}
+		&\frac{\partial l_1}{\partial a_1} = 2 a_1 - 2 b_1 = 0  
+		& a_1 = b_1 \\
+		&\frac{\partial l_1}{\partial b_1} = -2 a_1 + 4 b_1 - 2 = 0  
+		& b_1 = \frac{1}{2} (a_1 + 1)
+		\end{align*}
+		\begin{align*}
+		a_1 &= \frac{1}{2} (a_1 + 1)  &\rightarrow &\quad a_1 = 1\\
+		b_1 &= \frac{1}{2} (1 + 1)  &\rightarrow& \quad b_1 = 1
+		\end{align*}
+		
+		\begin{align*}
+		\frac{\partial l_2}{\partial a_2} & = 4 a_2 = 0  
+		&\rightarrow &\quad a_2 = 0  \\
+		\frac{\partial l_2}{\partial b_2} & = 4 b_2 = 0  
+		&\rightarrow &\quad b_2 = 0
+		\end{align*}
+		
+		
+		\begin{align*}
+		\frac{\partial l_3}{\partial a_3} & = 2a_3+2b_3= 0  
+		& a_3 = -b_3 \\
+		\frac{\partial l_3}{\partial b_3} & = 2 a_3 + 4 b_3 - 2 = 0  
+		& b_3 = \frac{1}{2} - \frac{a_3}{2}
+		\end{align*}
+		
+		\begin{align*}
+		a_3 &= - \bigg(\frac{1}{2} - \frac{a_3}{2}\bigg) &\rightarrow &\quad 
+		a_3 = -1\\
+		b_3 &= \frac{1}{2} -\bigg(-\frac{1}{2}\bigg) &\rightarrow& \quad b_3 = 1
+		\end{align*}
+
+		
+		Now, it is possible to validate the model on the other data-point:
+		
+		\begin{align*}
+		a_1x_1+b_1 & =  1 \cdot 1 + 1 = 2   \\
+		a_2x_2+b_2 & =  0 \cdot 0 + 0 = 0   \\
+		a_3x_3+b_3 & = -1 \cdot -1 + 1 = 2
+		\end{align*}
+		
+		
+		\begin{align*}
+		e_1(a_1x_1+b_1) & = \big(0-(a_1x_1+b_1)\big)^2 = (0-2)^2 = 4\\
+		e_2(a_2x_2+b_2) & = \big(1-(a_2x_2+b_2)\big)^2 = (1-0)^2 = 1\\
+		e_3(a_3x_3+b_3) & = \big(0-(a_3x_3+b_3)\big)^2 = (0-2)^2 = 4
+		\end{align*}
+		
+		The final error is computed as the mean of the validation errors: 
+		\begin{equation*}
+		E=\frac{e_1+e_2+e_3}{3}=\frac{4+1+4}{3}=\frac{9}{3}=3
+		\end{equation*}
+		
 	\end{itemize}
 }
