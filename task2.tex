@@ -85,5 +85,88 @@ again, she tells you its colour and the process repeats.
 			
 				
 		\end{itemize}
+		\item[(b)] It is possible to compute the required probability relying 
+		on Bayes formula as follows:
+		\begin{equation*}
+			\mathrm{p}(q_{0:2}=u_1,u_2, u_1 | O_{0:2}=y,r,b) = 
+			\frac{\mathrm{p}(q_{0:2}=u_1,u_2, u_1)\mathrm{p}(O_{0:2}=y,r,b | 
+			q_{0:2}=u_1,u_2, u_1)}{\mathrm{p}(O_{0:2}=y,r,b)}
+		\end{equation*}
+		
+		The numerator of the fraction can be rewritten as:
+		\begin{equation*}
+			\dots = \mathrm{p}(u_1) \mathrm{p}(y|u_1) 
+			\mathrm{p}(u_2|u_1) \mathrm{p}(r|u_2) \mathrm{p}(u_1|u_2) 
+			\mathrm{p}(b|u_1) = \\
+			= \frac{1}{2} \cdot \frac{4}{11} \cdot \frac{1}{2} \cdot 
+			\frac{4}{10} \cdot \frac{3}{4} \cdot \frac{5}{11} = \frac{3}{242}
+		\end{equation*}
+		
+		The denominator of the fraction is computed applying the Forward 
+		Algorithm. In particular, it is necessary to compute $\alpha_t$ for 
+		each possible state and for each observation as follows:
+		\begin{equation*}
+			\alpha_{t+1}(j) = \sum_i \alpha_t(i) \cdot a_{ij} \cdot b_j(O_{t+1})
+		\end{equation*}
+		with $\alpha_0(i) = \pi_i \cdot b_i(O_0)$.
+		
+		At the end, 		
+		\begin{equation*}
+		\mathrm{p}(O) = \sum_i \alpha_t(i) \mbox{.}
+		\end{equation*}
+		
+		Given the first observation, it is possible to compute:
+		\begin{align*}
+			\alpha_0(u_1) = \pi_{u_1} \cdot b_{u_1}(y) = \frac{1}{2} \cdot 
+			\frac{4}{11} = \frac{2}{11}\\
+			\alpha_0(u_2) = \pi_{u_2} \cdot b_{u_2}(y) = \frac{1}{2} \cdot 
+			\frac{3}{10} = \frac{3}{20}
+		\end{align*}
+		
+		Now the probability can be updated according to the new observation:
+		\begin{align*}
+		\alpha_1(u_1) & = \sum_{q_t \in S} \alpha_0(q_t) \cdot a_{q_t u_1} 
+		\cdot b_{u_1}(r) = \\
+		& = \bigg( \frac{2}{11} \cdot \frac{1}{2} \cdot \frac{2}{11} 
+		\bigg) + \bigg( \frac{3}{20} \cdot \frac{3}{4} \cdot \frac{2}{11} 
+		\bigg) = \\
+		& =\frac{2}{121} + \frac{9}{440} = \frac{179}{4840} 
+		\\[15pt]
+		\alpha_1(u_2) & = \sum_{q_t \in S} \alpha_0(q_t) \cdot a_{q_t u_2} 
+		\cdot b_{u_2}(r) = \\
+		& =\bigg( \frac{2}{11} \cdot \frac{1}{2} \cdot \frac{4}{10} 
+		\bigg) + \bigg( \frac{3}{20} \cdot \frac{1}{4} \cdot \frac{4}{10} 
+		\bigg) = \\
+		& =\frac{2}{5} + \frac{3}{200} = \frac{113}{2200} 
+		\end{align*}
+		
+		Given the last observation, the probability is updated as follows:
+		\begin{align*}
+		\alpha_2(u_1) & = \sum_{q_t \in S} \alpha_1(q_t) \cdot a_{q_t u_1} 
+		\cdot b_{u_1}(b) = \\
+		& = \bigg( \frac{179}{4840} \cdot \frac{1}{2} \cdot \frac{5}{11} 
+		\bigg) + \bigg( \frac{113}{2200} \cdot \frac{3}{4} \cdot \frac{5}{11} 
+		\bigg) = \\
+		& =\frac{179}{21296} + \frac{339}{19360} = \frac{5519}{212960} 
+		\\[15pt]
+		\alpha_2(u_2) & = \sum_{q_t \in S} \alpha_1(q_t) \cdot a_{q_t u_2} 
+		\cdot b_{u_2}(b) = \\
+		& =\bigg( \frac{179}{4840} \cdot \frac{1}{2} \cdot \frac{3}{10} 
+		\bigg) + \bigg( \frac{113}{2200} \cdot \frac{1}{4} \cdot \frac{3}{10} 
+		\bigg) = \\
+		& =\frac{537}{96800} + \frac{339}{88000} = \frac{9099}{968000} 
+		\end{align*}
+		
+		Now, 
+		\begin{equation*}
+		\mathrm{p}(O_{0:2}=y,r,b) = \alpha_2(u_1) + alpha_2(u_2)  = 
+		\frac{5519}{212960} + \frac{9099}{968000} = \frac{376039}{10648000} 
+		\end{equation*}
+		
+		Finally, 
+		\begin{equation*}
+		\mathrm{p}(q_{0:2}=u_1,u_2, u_1 | O_{0:2}=y,r,b)= \frac{3}{242} 
+		\cdot \frac{10648000}{376039} = \frac{132000}{376039} \approx 0.35
+		\end{equation*}
 	\end{itemize}
 }
