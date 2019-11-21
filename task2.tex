@@ -4,17 +4,18 @@ covers your eyes with a tape. Then, she chooses one urn at random with equal
 probability. You pick one ball from that urn, she tells you its colour and then 
 you return the ball to the urn you picked it from (you don’t know which one as 
 your eyes are covered). Your friend switches from urn 1 to urn 2 with 
-probability 1/2 and from urn 2 to urn 1 with probability 3/4. You pick one ball 
+probability ${1}{}/{2}$ and from urn 2 to urn 1 with probability ${3}{}/{4}$. 
+You pick one ball 
 again, she tells you its colour and the process repeats.
 
 \begin{itemize}
-	\item[(a)] Describe the system as hidden Markov model. What are $S, O, \pi, 
+	\item[(a)] Describe the system as Hidden Markov Model. What are $S, O, \pi, 
 	A, B$?
 	\item[(b)] What is the probability that initial urn was urn 1, then urn 2 
 	and urn 1 again given that you picked yellow, red and blue balls 
-	respectively. Use dynamic programming!
+	respectively. Use dynamic programming! \textit{Hint}: use Bayes formula!
 	\item[(c)] What is the most probable sequence of urns given that you picked 
-	red, yellow and blue. Use Viterbi algorithm!
+	red, yellow and blue. Use Viterbi Algorithm!
 \end{itemize}
 }
 
@@ -22,7 +23,67 @@ again, she tells you its colour and the process repeats.
 	
 	\begin{itemize}
 		\item[(a)] 
-		\item[(b)] 
-		\item[(c)] 
+		\begin{minipage}[t]{\linewidth}
+		\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\linewidth]{hmm2.pdf}
+		\captionof{figure}{Representation of the described system as Hidden 
+		Markov Model.}
+		\label{fig:hmm}
+		\end{figure}
+		\end{minipage}
+	
+		\begin{itemize}
+			\item[-] Set of N states $S=\{s_1, \dots, s_N\}$: in this case, the 
+			states are the two urns, so 
+			\begin{equation*}
+				S=\{u_1, u_2\} \mbox{.}
+			\end{equation*}
+			\item[-] The starting state probabilities are contained in 
+			the vector $\pi=\{\pi_1, \dots, \pi_N\}$. In this example, since 
+			each urn is chosen at random with equal probability:
+			\begin{equation*}
+			\pi = 
+			\left[\begin{matrix}
+			\dfrac{1}{2}\\[15pt] \dfrac{1}{2} 
+			\end{matrix}\right]\mbox{.}
+			\end{equation*}
+			\item[-] State transition probabilities are given in matrix $A$, 
+			where the probability of a transitioning from state $i$ to state 
+			$j$ is  $a_{ij}=\mathrm{P}(q_{t+1}=s_j|q_t=s_i)$, with $i \geq 1$ 
+			and $j \leq N$. In this example, since the probability of switches 
+			from urn 1 to urn 2 is ${1}{}/{2}$ and from urn 2 to urn 1 
+			is ${3}{}/{3}$, then
+			\begin{equation*}
+				A = 
+				\left[\begin{matrix}
+				\dfrac{1}{2}  & \dfrac{1}{2} \\[15pt]
+				\dfrac{3}{4}  & \dfrac{1}{4}
+				\end{matrix}\right] \mbox{.}
+			\end{equation*}
+			
+			\item[-] The $M$ observations $O=\{ v_1, \dots, v_m\}$ in the 
+			space. In this example, the possible observations correspond to 
+			picking a blue, red or yellow ball
+			\begin{equation*}
+				O = \{ b, r, y \} \mbox{.}
+			\end{equation*} 
+	
+			\item[-] Observation probabilities are give in the matrix $B$. 
+			In particular, the probability of observing $m$ is given by 
+			$b_i(m)=\mathrm{P}(O_t=v_m|q_t=s_i)$, with $1 \leq i \leq N$ and 
+			$1 \leq j \leq M$
+			
+			\begin{equation*}
+			B = 
+			\left[\begin{matrix}
+			\dfrac{5}{11} & \dfrac{2}{11} & \dfrac{4}{11}\\[15pt]
+			\dfrac{3}{10} & \dfrac{4}{10} & \dfrac{3}{10} 
+			\end{matrix}\right]
+			\mbox{.}
+			\end{equation*}
+			
+				
+		\end{itemize}
 	\end{itemize}
 }
