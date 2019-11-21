@@ -8,7 +8,7 @@
 \usepackage{multirow} % Multirow is for tables with multiple rows within one 
 %cell.
 \usepackage{booktabs} % For even nicer tables.
-
+\usepackage[table]{xcolor}
 \usepackage{graphicx} 
 
 \usepackage{setspace}
@@ -151,6 +151,16 @@
 \newcommand\ASolution{%
 	\stepcounter{solution}%
 	\textbf{Solution \solution:}\\%
+}
+
+\usepackage{tikz}
+\usetikzlibrary{matrix, positioning, calc, intersections, arrows, arrows.meta}
+\tikzset{% use tikzset not tikzstyle
+	state/.style={shape=circle,draw=blue!50,fill=blue!20},
+	bluethick/.style={-angle 60,very thick, blue, line width=2pt},
+	redthick/.style={-angle 60, thick, red, line width=1pt},
+	blueline/.style={blue, thick},
+	redline/.style={red, thick},
 }
 
 \begin{document}
