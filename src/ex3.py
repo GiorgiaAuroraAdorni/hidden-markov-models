@@ -3,7 +3,7 @@ import numpy as np
 
 def state_probability(pi, A, s, T):
     """
-    :param pi: initial state ditribution π
+    :param pi: initial state distribution π
     :param A: transition matrix
     :param s: state
     :param T: time
