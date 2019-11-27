@@ -34,8 +34,9 @@
 
 		\item[(b)] 
 		During the E-step, the responsibilities of each data point for each 
-		class $\gamma_{nk}$, that are the posterior probabilities, can be 
-		computed using Bayes with the following expression:
+		class $\gamma_{nk}$, that are the posterior probabilities 
+		$\mathrm{P}(K=k|X=x_n)$, can be computed using Bayes with the following 
+		expression:
 		\begin{equation}
 			\gamma_{nk} =
 			\frac{\pi_k\,\mathcal{P}(x_n,\lambda_k)}{\sum_j \pi_j\, 
@@ -45,7 +46,7 @@
 		\end{equation}
 		
 		\item[(c)] 
-		The M-step consists in re-estimate the class parameters using new 
+		The M-step consists in re-estimating the class parameters using new 
 		responsibilities provided by the E-step. With a Poisson distribution, 
 		it is necessary to compute only $\lambda_k$ and $\pi_k$ as follows:
 		\begin{equation}

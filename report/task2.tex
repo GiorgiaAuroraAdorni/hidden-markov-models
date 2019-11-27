@@ -40,7 +40,7 @@ again, she tells you its colour and the process repeats.
 				S=\{u_1, u_2\} \mbox{.}
 			\end{equation*}
 			\item[-] The starting state probabilities are contained in 
-			the vector $\pi=\{\pi_1, \dots, \pi_N\}$. In this example, since 
+			the vector $\pi=[ \pi_1, \dots, \pi_N ]$. In this example, since 
 			each urn is chosen at random with equal probability:
 			\begin{equation*}
 			\pi = 
@@ -49,9 +49,9 @@ again, she tells you its colour and the process repeats.
 			\end{matrix}\right]\mbox{.}
 			\end{equation*}
 			\item[-] State transition probabilities are given in matrix $A$, 
-			where the probability of a transitioning from state $i$ to state 
-			$j$ is  $a_{ij}=\mathrm{P}(q_{t+1}=s_j|q_t=s_i)$, with $i \geq 1$ 
-			and $j \leq N$. In this example, since the probability of switches 
+			where the probability of transitioning from state $i$ to state 
+			$j$ is  $a_{ij}=\mathrm{P}(q_{t+1}=s_j|q_t=s_i)$, with $ 1 \leq i,j 
+			\leq N$. In this example, since the probability of switching 
 			from urn 1 to urn 2 is ${1}{}/{2}$ and from urn 2 to urn 1 
 			is ${3}{}/{3}$, then
 			\begin{equation*}
@@ -62,14 +62,14 @@ again, she tells you its colour and the process repeats.
 				\end{matrix}\right] \mbox{.}
 			\end{equation*}
 			
-			\item[-] The $M$ observations $O=\{ v_1, \dots, v_m\}$ in the 
-			space. In this example, the possible observations correspond to 
-			picking a blue, red or yellow ball
+			\item[-] Set of $M$ observations $O=\{ v_1, \dots, v_m\}$. In this 
+			example, the possible observations correspond to picking a blue, 
+			red or yellow ball
 			\begin{equation*}
 				O = \{ b, r, y \} \mbox{.}
 			\end{equation*} 
 	
-			\item[-] Observation probabilities are give in the matrix $B$. 
+			\item[-] Observation probabilities are given in the matrix $B$. 
 			In particular, the probability of observing $m$ is given by 
 			$b_i(m)=\mathrm{P}(O_t=v_m|q_t=s_i)$, with $1 \leq i \leq N$ and 
 			$1 \leq j \leq M$
@@ -173,15 +173,16 @@ again, she tells you its colour and the process repeats.
 			\begin{align*}
 			\text{\texttt{Viterbi(r, y, b)}} & = \arg \max_{q_0, q_1, q_2} 
 			\mathrm{p}(q_0, q_1, q_2 | O_0= r, O_1=y,O_2=b) = \\
-			& \overset{bayes}{=} \arg \max_{q_0, q_1, q_2} 
-			\frac{\mathrm{p}(q_0, q_1, q_2, O_0= r, O_1=y,O_2=b) 
+			&\overset{\mathclap{\text{bayes}}}{=} \hspace*{1.5em} \arg 
+			\max_{q_0, q_1, q_2} \frac{\mathrm{p}(q_0, q_1, q_2, O_0= r, 
+			O_1=y,O_2=b) 
 			}{\mathrm{p}(O_0= r, O_1=y,O_2=b) } = \\
 			& = arg \max_{q_0, q_1, q_2} \mathrm{p}(q_0, q_1, q_2, O_0= r, 
 			O_1=y,O_2=b)
 			\end{align*}
 			
 			Defining recursively the following variable it is easier to compute 
-			the algorithm 
+			the probabilities 
 			\begin{align*}
 				\delta_{t}(i) & = \max_{q_0, \dots, q_{t-1}} \mathrm{p} (q_0, 
 				\dots, q_{t-1}, q_t=s_i, O_0, \dots, O_t)\\
@@ -286,6 +287,11 @@ again, she tells you its colour and the process repeats.
 				\captionof{figure}{Trellis of the most probable path.}
 				\label{tab:trallis}
 			\end{figure}
+	Given $\delta_2$, $u_1$ is chosen since is the state with the maximum 
+	value. Backtracking to $\delta_1$, $u_1$ is the state with the maximum 
+	value and than, back to $\delta_0$, $u_2$ is the state with the maximum 
+	value.
+
 	Hence, the most probable sequence of states is $u_2, u_1, u_1$.
 	
 	
