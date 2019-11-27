@@ -20,17 +20,22 @@
 
 \Solution{
 	\begin{itemize}
-		\item[(a)] Given the random variables $X_k$ and $K$, the distribution 
-		$\mathrm{p}(x)$ is given choosing first of all a distribution prima 
-		scelgo una 
-		distribuzione e poi estraggo da quella il valore
+		\item[(a)] Given the random variables $K$ and $X$ such that their 
+		distributions are $\mathrm{P}(K=k)= \pi_k$ and $\mathrm{P}(X=x|K=k) = 
+		\mathcal{P} (x;\lambda_k)$, the probability of sampling a certain $x$ 
+		is given by the sum, over all the possible distributions, of the 
+		probability of choosing a particular Poisson distribution multiplied by 
+		the probability of sampling $x$ given that distribution:
 		\begin{equation}
 		\mathrm{p}(x) = \sum_k \mathrm{P}(K=k)\mathrm{P}(X=x|K=k) = \sum_k 
 		\pi_k \, \mathcal{P}(x,\lambda_k)  = \sum_k \pi_k \, e^{-\lambda_k} 
 		\frac{\lambda_k^x}{x!} 
 		\end{equation}
-		
+
 		\item[(b)] 
+		During the E-step, the responsibilities of each data point for each 
+		class $\gamma_{nk}$, that are the posterior probabilities, can be 
+		computed using Bayes with the following expression:
 		\begin{equation}
 			\gamma_{nk} =
 			\frac{\pi_k\,\mathcal{P}(x_n,\lambda_k)}{\sum_j \pi_j\, 
@@ -40,6 +45,9 @@
 		\end{equation}
 		
 		\item[(c)] 
+		The M-step consists in re-estimate the class parameters using new 
+		responsibilities provided by the E-step. With a Poisson distribution, 
+		it is necessary to compute only $\lambda_k$ and $\pi_k$ as follows:
 		\begin{equation}
 			\lambda_k^{\text{new}} = \frac{1}{N_k} \sum _n \gamma_{nk}x_n
 		\end{equation}
@@ -48,7 +56,6 @@
 		\pi_k^{\text{new}} = \frac{N_k}{N} 
 		\end{equation}
 		
-		\textbf{FIXME}
-		with $N_k=\sum _n \gamma(z_{nk})$ or $N_k=\sum _n \gamma_{nk}$
+		where $N_k=\sum _n \gamma_{nk}$, hence $\sum_kN_k=N$. 
 	\end{itemize}
 }
